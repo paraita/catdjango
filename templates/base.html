@@ -1,133 +1,55 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <title>{{enigme.titre}}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+<meta charset="utf-8">
+<title>{{enigme.titre}}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Moteur de chasse aux trésors">
+<meta name="author" content="Paraita Wohler">
 
-    <!-- Le styles -->
-    <link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-      #prochain_indice {
-  		visibility: hidden;
-  	  }
-  	  @media all {
-        .panel {
-            overflow                    : hidden;
-            position                    : absolute;
-            display                     : block;
-            width                       : 100%;
-            padding-top                 : 60px;
-            padding-bottom              : 60px;
-            top                         : 0;
-            /*height: 100%; */ /* uncomment if desktop */
-        }
+<!-- Le style -->
+<link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet">
+<link href="{{STATIC_URL}}css/perso.css" rel="stylesheet">
+<link href="{{STATIC_URL}}css/bootstrap-responsive.css" rel="stylesheet">
 
-        .scrollable {
-            overflow                    : scroll;
-            -webkit-overflow-scrolling  : touch;
-        }
-
-        .insideScrollablePanel {
-            margin-left                 : 5%;
-            margin-right                : 5%;
-            width                       : 90%;
-        }
-
-    } /* end of medial all */
-  	  /*--- ipad ---*/
-    /*--- full screen mode ---*/
-    @media (device-width: 768px) and (orientation: portrait) {
-        .panel {
-            height                      : 934px; /*1004-80*/
-        }
-    }
-    /*--- browser mode ---*/
-    @media (device-width: 768px) and (orientation: landscape) {
-        .panel {
-            height                      : 668px; /*748-80*/
-        }
-    }
-
-    /*--- iphone ---*/
-    /*--- full screen mode ---*/
-    @media (max-width: 480px) and (orientation: portrait) {
-        .panel {
-            height                      : 380px; /*460-80*/
-        }
-    }
-    /*--- browser mode ---*/
-    @media (max-width: 480px) and (orientation: landscape) {
-        .panel {
-            height                      : 220px; /*300-80*/
-        }
-    }
-    </style>
-    <link href="{{STATIC_URL}}css/bootstrap-responsive.css" rel="stylesheet">
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <script src="{{STATIC_URL}}js/jquery-1.9.1.min.js" type="text/javascript"></script>
-    <script src="{{STATIC_URL}}js/bootstrap.js" type="text/javascript"></script>
+<script src="{{STATIC_URL}}js/jquery-1.9.1.min.js"
+	type="text/javascript"></script>
+<script src="{{STATIC_URL}}js/bootstrap.js" type="text/javascript"></script>
 </head>
 
-  <body>
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a> <a class="brand" href="/">Chasse au trésor</a>
+				<div class="nav-collapse collapse"></div>
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="/">Chasse au trésor</a>
-          <div class="nav-collapse collapse">
-          <!-- 
-            <ul class="nav">
-              <li class="active"><a href="/">Home</a></li>
-            </ul>
-          -->
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
+	<div class="container">
+		<div class="">
+			<h2>{{enigme.titre}}</h2>
+			<p>{{enigme.question}}</p>
+			<textarea id="text_reponse" rows="2"></textarea>
+			<div>
+				<button id="bouton_valider" type="submit" class="btn btn-primary">
+					Valider</button>
+			</div>
+			<div id="prochain_indice" class="arrondi">{{enigme.indice}}</div>
+		</div>
+	</div>
+	<!-- /container -->
 
-    <div class="container">
-    <div class="">
-        <h2>{{enigme.titre}}</h2>
-        <p>{{enigme.question}}</p>
-        <textarea id="text_reponse" rows="2"></textarea>
-        <div>
-        	<button id="bouton_valider" type="submit" class="btn btn-primary">
-        		Valider
-        	</button>
-        </div>
-    	<div id="prochain_indice" class="arrondi">{{enigme.indice}}</div>
-    </div>
-    </div> <!-- /container -->
-    <script type="text/javascript">
-    $("#bouton_valider").button();
-    $('#prochain_indice').popover();
-    $("#prochain_indice").hide();
-    $("#bouton_valider").click(function() {
-    	var reponse = $("#text_reponse").val();
-    	if (reponse.toLowerCase() == "{{enigme.reponse}}".toLowerCase()) {
-    		alert("BRAVO !");
-			$("#prochain_indice").css('visibility','visible');
-			$('#prochain_indice').fadeIn();
-    	}
-    	else {
-    		alert("FAUX, réfléchis !");
-    	}
-    });
-	</script>
-  </body>
+	<script src="{{STATIC_URL}}js/perso.js" type="text/javascript"></script>
+</body>
+
 </html>
